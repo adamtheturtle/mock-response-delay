@@ -77,6 +77,19 @@ class TestDelayedHttpx2Handler:
         assert waits == [1.0]
 
     @staticmethod
+    def test_integer_timeout() -> None:
+        """An integer timeout is compared with the delay."""
+        waits: list[float] = []
+        transport = _transport(delay_seconds=5.0, sleep_fn=waits.append)
+        with (
+            httpx2.Client(transport=transport) as client,
+            pytest.raises(expected_exception=httpx2.ReadTimeout),
+        ):
+            client.get(url=_URL, timeout=1)
+
+        assert waits == [1.0]
+
+    @staticmethod
     def test_only_read_timeout_matters() -> None:
         """Only the read timeout is compared with the delay."""
         waits: list[float] = []
