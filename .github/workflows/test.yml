@@ -1,0 +1,83 @@
+---
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # Run at 1:00 every day
+    - cron: 0 1 * * *
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.12', '3.13', '3.14']
+        platform: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10.0.1
+        with:
+          enable-cache: true
+          cache-dependency-glob: '**/pyproject.toml'
+
+      - name: Run tests
+        run: |
+          uv run --extra=dev \
+            coverage run -m pytest \
+              -vvv \
+              --showlocals \
+              --exitfirst \
+              .
+        shell: bash
+        env:
+          UV_PYTHON: ${{ matrix.python-version }}
+
+      - name: Require 100% Coverage
+        run: |
+          uv run --extra=dev coverage combine
+          uv run --extra=dev coverage html --skip-covered --skip-empty
+
+          # Report and write to summary, without failing yet.
+          uv run --extra=dev coverage report --format=markdown \
+            >> "$GITHUB_STEP_SUMMARY" || true
+
+          # Report again and fail if under 100%.
+          uv run --extra=dev coverage report
+        shell: bash
+        env:
+          UV_PYTHON: ${{ matrix.python-version }}
+
+      - name: Upload HTML report if check failed
+        uses: actions/upload-artifact@v7
+        with:
+          name: html-report-${{ matrix.platform }}-${{ matrix.python-version }}
+          path: htmlcov
+        if: ${{ failure() }}
+
+  # Final completion check
+  completion-ci:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check all jobs status
+        run: |-
+          if ! ${{ needs.tests.result == 'success' }}; then
+            echo "Tests failed"
+            exit 1
+          fi
