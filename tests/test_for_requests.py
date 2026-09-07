@@ -190,7 +190,9 @@ class TestDelayedResponsesCallback:
     @staticmethod
     def test_default_sleep() -> None:
         """By default, the delay is real."""
-        delay_seconds = 0.05
+        # Windows timers are coarse, so allow a short sleep to end early.
+        delay_seconds = 0.2
+        minimum_elapsed_seconds = 0.1
         callback = delayed_responses_callback(
             callback=_hello,
             delay_seconds=delay_seconds,
@@ -201,4 +203,4 @@ class TestDelayedResponsesCallback:
         callback(request)
         elapsed = time.monotonic() - start
 
-        assert elapsed >= delay_seconds
+        assert elapsed >= minimum_elapsed_seconds
