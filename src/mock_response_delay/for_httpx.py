@@ -2,12 +2,15 @@
 
 import functools
 import time
-from collections.abc import Callable, Mapping
+from collections.abc import Callable
 
 import httpx
 from beartype import BeartypeConf, beartype
 
-from mock_response_delay._core import respond_after_delay
+from mock_response_delay._core import (
+    read_timeout_from_extension,
+    respond_after_delay,
+)
 
 
 @beartype
@@ -25,13 +28,9 @@ def _read_timeout_seconds(*, request: httpx.Request) -> float | None:
     # An ``httpx`` client puts the timeout it will apply into the
     # ``timeout`` extension of each request, with one entry per leg.
     # A request which was not made through a client has no extensions.
-    timeout_info: Mapping[str, float | None] = request.extensions.get(
-        "timeout",
-        {},
-    )  # ty: ignore[unsound-assignment]
-    # A client given an integer timeout passes it on as an integer.
-    read_timeout = timeout_info.get("read")
-    return None if read_timeout is None else read_timeout * 1.0
+    return read_timeout_from_extension(
+        timeout_info=request.extensions.get("timeout")
+    )
 
 
 @beartype(conf=BeartypeConf(is_pep484_tower=True))
