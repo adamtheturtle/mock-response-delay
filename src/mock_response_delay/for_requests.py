@@ -29,11 +29,18 @@ def _read_timeout_seconds(*, request: PreparedRequest) -> float | None:
         The read timeout in seconds, or ``None`` if the request has no
         timeout.
     """
-    # ``responses`` attaches the keyword arguments of the ``requests``
-    # call to the prepared request as ``req_kwargs``.  ``requests`` itself
-    # does not, so the attribute is not in the ``requests`` type stubs,
-    # and a request which was not made through ``responses`` does not
-    # have it.
+    # ``responses`` customizes the ``PreparedRequest`` passed to callbacks by
+    # attaching the keyword arguments of the ``requests`` call as
+    # ``req_kwargs``.  However, its callback API declares the argument as the
+    # unmodified ``requests.PreparedRequest`` type, which neither defines nor
+    # guarantees that attribute.  This mismatch belongs upstream in
+    # ``responses``: it could expose a request type containing its additional
+    # ``params`` and ``req_kwargs`` attributes and use that type throughout its
+    # callback and matching APIs.  Adding the attribute to ``requests`` or
+    # ``types-requests`` would be incorrect because requests prepared outside
+    # ``responses`` do not have it.  Keep the defensive lookup even if upstream
+    # gains that type, because this wrapper also accepts an ordinary prepared
+    # request and treats its missing timeout as ``None``.
     req_kwargs: _RequestsKeywordArguments = getattr(  # pylint: disable=bad-builtin
         request,
         "req_kwargs",
