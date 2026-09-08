@@ -38,13 +38,11 @@ def _read_timeout_seconds(*, request: PreparedRequest) -> float | None:
     # ``params`` and ``req_kwargs`` attributes and use that type throughout its
     # callback and matching APIs.  Adding the attribute to ``requests`` or
     # ``types-requests`` would be incorrect because requests prepared outside
-    # ``responses`` do not have it.  Keep the defensive lookup even if upstream
-    # gains that type, because this wrapper also accepts an ordinary prepared
-    # request and treats its missing timeout as ``None``.
-    req_kwargs: _RequestsKeywordArguments = getattr(  # pylint: disable=bad-builtin
+    # ``responses`` do not have it.  The dynamic lookup can become direct
+    # attribute access when ``responses`` exposes and uses such a type.
+    req_kwargs: _RequestsKeywordArguments = getattr(  # noqa: B009  # pylint: disable=bad-builtin
         request,
         "req_kwargs",
-        _RequestsKeywordArguments(),
     )
     timeout = req_kwargs.get("timeout")
     # ``requests`` accepts the timeout as a single number, which applies
