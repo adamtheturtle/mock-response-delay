@@ -28,7 +28,7 @@ def _read_timeout_seconds(*, request: httpx.Request) -> float | None:
     timeout_info: Mapping[str, float | None] = request.extensions.get(
         "timeout",
         {},
-    )
+    )  # ty: ignore[unsound-assignment]
     # A client given an integer timeout passes it on as an integer.
     read_timeout = timeout_info.get("read")
     return None if read_timeout is None else read_timeout * 1.0
