@@ -73,7 +73,7 @@ class TestDelayedHttpxHandler:
             httpx.Client(transport=transport) as client,
             pytest.raises(expected_exception=httpx.ReadTimeout),
         ):
-            client.get(url=_URL, timeout=1.0)
+            _ = client.get(url=_URL, timeout=1.0)
 
         assert waits == [1.0]
 
@@ -86,7 +86,7 @@ class TestDelayedHttpxHandler:
             httpx.Client(transport=transport) as client,
             pytest.raises(expected_exception=httpx.ReadTimeout),
         ):
-            client.get(url=_URL, timeout=1)
+            _ = client.get(url=_URL, timeout=1)
 
         assert waits == [1.0]
 
@@ -119,7 +119,7 @@ class TestDelayedHttpxHandler:
             httpx.Client(transport=transport) as client,
             pytest.raises(expected_exception=httpx.ReadTimeout),
         ):
-            client.get(url=_URL, timeout=1.0)
+            _ = client.get(url=_URL, timeout=1.0)
 
         handler.assert_not_called()
 
@@ -158,7 +158,7 @@ class TestDelayedHttpxHandler:
         """The handler is usable as a ``respx`` side effect."""
         waits: list[float] = []
         with respx.mock() as router:
-            router.get(url=_URL).mock(
+            _ = router.get(url=_URL).mock(
                 side_effect=delayed_httpx_handler(
                     handler=_hello,
                     delay_seconds=5.0,
@@ -166,7 +166,7 @@ class TestDelayedHttpxHandler:
                 ),
             )
             with pytest.raises(expected_exception=httpx.ReadTimeout):
-                httpx.get(url=_URL, timeout=1.0)
+                _ = httpx.get(url=_URL, timeout=1.0)
             response = httpx.get(url=_URL, timeout=10.0)
 
         assert response.text == "Hello"

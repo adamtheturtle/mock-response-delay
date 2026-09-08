@@ -72,7 +72,7 @@ class TestDelayedHttpx2Handler:
             httpx2.Client(transport=transport) as client,
             pytest.raises(expected_exception=httpx2.ReadTimeout),
         ):
-            client.get(url=_URL, timeout=1.0)
+            _ = client.get(url=_URL, timeout=1.0)
 
         assert waits == [1.0]
 
@@ -85,7 +85,7 @@ class TestDelayedHttpx2Handler:
             httpx2.Client(transport=transport) as client,
             pytest.raises(expected_exception=httpx2.ReadTimeout),
         ):
-            client.get(url=_URL, timeout=1)
+            _ = client.get(url=_URL, timeout=1)
 
         assert waits == [1.0]
 
@@ -118,7 +118,7 @@ class TestDelayedHttpx2Handler:
             httpx2.Client(transport=transport) as client,
             pytest.raises(expected_exception=httpx2.ReadTimeout),
         ):
-            client.get(url=_URL, timeout=1.0)
+            _ = client.get(url=_URL, timeout=1.0)
 
         handler.assert_not_called()
 

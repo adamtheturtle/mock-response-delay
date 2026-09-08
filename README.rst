@@ -58,7 +58,7 @@ A request with a read timeout shorter than the delay raises ``requests.exception
     waits: list[float] = []
 
     with responses.RequestsMock() as mock:
-        mock.add_callback(
+        _registration = mock.add_callback(
             method="GET",
             url="https://example.com/",
             callback=delayed_responses_callback(
@@ -69,7 +69,9 @@ A request with a read timeout shorter than the delay raises ``requests.exception
         )
 
         with pytest.raises(expected_exception=requests.exceptions.Timeout):
-            requests.get(url="https://example.com/", timeout=1.0)
+            _response = requests.get(
+                url="https://example.com/", timeout=1.0
+            )
 
         response = requests.get(url="https://example.com/", timeout=10.0)
 
@@ -112,7 +114,9 @@ A request with a read timeout shorter than the delay raises ``httpx.ReadTimeout`
 
     with httpx.Client(transport=transport) as client:
         with pytest.raises(expected_exception=httpx.ReadTimeout):
-            client.get(url="https://example.com/", timeout=1.0)
+            _response = client.get(
+                url="https://example.com/", timeout=1.0
+            )
 
         response = client.get(url="https://example.com/", timeout=10.0)
 
@@ -151,7 +155,9 @@ A request with a read timeout shorter than the delay raises ``httpx.ReadTimeout`
 
     with httpx2.Client(transport=transport) as client:
         with pytest.raises(expected_exception=httpx2.ReadTimeout):
-            client.get(url="https://example.com/", timeout=1.0)
+            _response = client.get(
+                url="https://example.com/", timeout=1.0
+            )
 
         response = client.get(url="https://example.com/", timeout=10.0)
 

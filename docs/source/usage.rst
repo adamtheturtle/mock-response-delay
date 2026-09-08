@@ -35,7 +35,7 @@ A request with a read timeout shorter than the delay raises :class:`requests.exc
     waits: list[float] = []
 
     with responses.RequestsMock() as mock:
-        mock.add_callback(
+        _registration = mock.add_callback(
             method="GET",
             url="https://example.com/",
             callback=delayed_responses_callback(
@@ -46,7 +46,9 @@ A request with a read timeout shorter than the delay raises :class:`requests.exc
         )
 
         with pytest.raises(expected_exception=requests.exceptions.Timeout):
-            requests.get(url="https://example.com/", timeout=1.0)
+            _response = requests.get(
+                url="https://example.com/", timeout=1.0
+            )
 
         response = requests.get(url="https://example.com/", timeout=10.0)
 
@@ -94,7 +96,9 @@ A request with a read timeout shorter than the delay raises :class:`httpx.ReadTi
 
     with httpx.Client(transport=transport) as client:
         with pytest.raises(expected_exception=httpx.ReadTimeout):
-            client.get(url="https://example.com/", timeout=1.0)
+            _response = client.get(
+                url="https://example.com/", timeout=1.0
+            )
 
         response = client.get(url="https://example.com/", timeout=10.0)
 
@@ -123,7 +127,7 @@ With ``respx``, give the wrapped handler as the side effect of a route:
     waits: list[float] = []
 
     with respx.mock() as router:
-        router.get(url="https://example.com/").mock(
+        _route = router.get(url="https://example.com/").mock(
             side_effect=delayed_httpx_handler(
                 handler=slow_handler,
                 delay_seconds=5.0,
@@ -132,7 +136,9 @@ With ``respx``, give the wrapped handler as the side effect of a route:
         )
 
         with pytest.raises(expected_exception=httpx.ReadTimeout):
-            httpx.get(url="https://example.com/", timeout=1.0)
+            _response = httpx.get(
+                url="https://example.com/", timeout=1.0
+            )
 
     assert waits == [1.0]
 
@@ -172,7 +178,9 @@ The same handler serves ``httpx.AsyncClient``.
 
     with httpx2.Client(transport=transport) as client:
         with pytest.raises(expected_exception=httpx2.ReadTimeout):
-            client.get(url="https://example.com/", timeout=1.0)
+            _response = client.get(
+                url="https://example.com/", timeout=1.0
+            )
 
         response = client.get(url="https://example.com/", timeout=10.0)
 

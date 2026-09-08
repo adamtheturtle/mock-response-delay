@@ -29,7 +29,7 @@ def _requests_mock(
 ) -> responses.RequestsMock:
     """A mock which answers ``_URL`` after a delay."""
     requests_mock = responses.RequestsMock()
-    requests_mock.add_callback(
+    _ = requests_mock.add_callback(
         method="GET",
         url=_URL,
         callback=delayed_responses_callback(
@@ -99,7 +99,7 @@ class TestDelayedResponsesCallback:
             _requests_mock(delay_seconds=5.0, sleep_fn=waits.append),
             pytest.raises(expected_exception=requests.exceptions.Timeout),
         ):
-            requests.get(url=_URL, timeout=1.0)
+            _ = requests.get(url=_URL, timeout=1.0)
 
         assert waits == [1.0]
 
@@ -111,7 +111,7 @@ class TestDelayedResponsesCallback:
             _requests_mock(delay_seconds=5.0, sleep_fn=waits.append),
             pytest.raises(expected_exception=requests.exceptions.Timeout),
         ):
-            requests.get(url=_URL, timeout=1)
+            _ = requests.get(url=_URL, timeout=1)
 
         assert waits == [1.0]
 
@@ -125,7 +125,7 @@ class TestDelayedResponsesCallback:
             _requests_mock(delay_seconds=5.0, sleep_fn=waits.append),
             pytest.raises(expected_exception=requests.exceptions.Timeout),
         ):
-            requests.get(url=_URL, timeout=(10.0, 1.0))
+            _ = requests.get(url=_URL, timeout=(10.0, 1.0))
 
         assert waits == [1.0]
 
@@ -156,7 +156,7 @@ class TestDelayedResponsesCallback:
         """
         callback = mock.Mock(spec=_hello)
         requests_mock = responses.RequestsMock()
-        requests_mock.add_callback(
+        _ = requests_mock.add_callback(
             method="GET",
             url=_URL,
             callback=delayed_responses_callback(
@@ -169,7 +169,7 @@ class TestDelayedResponsesCallback:
             requests_mock,
             pytest.raises(expected_exception=requests.exceptions.Timeout),
         ):
-            requests.get(url=_URL, timeout=1.0)
+            _ = requests.get(url=_URL, timeout=1.0)
 
         callback.assert_not_called()
 
@@ -200,7 +200,7 @@ class TestDelayedResponsesCallback:
         request = requests.Request(method="GET", url=_URL).prepare()
 
         start = time.monotonic()
-        callback(request)
+        _ = callback(request)
         elapsed = time.monotonic() - start
 
         assert elapsed >= minimum_elapsed_seconds
