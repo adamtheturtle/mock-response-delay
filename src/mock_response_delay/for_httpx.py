@@ -29,9 +29,9 @@ def _read_timeout_seconds(*, request: httpx.Request) -> float | None:
         "timeout",
         {},
     )
-    read_timeout = timeout_info.get("read")
     # A client given an integer timeout passes it on as an integer.
-    return None if read_timeout is None else float(read_timeout)
+    read_timeout = timeout_info.get("read")
+    return None if read_timeout is None else read_timeout * 1.0
 
 
 @beartype(conf=BeartypeConf(is_pep484_tower=True))

@@ -3,13 +3,19 @@
 import functools
 import time
 from collections.abc import Callable
-from typing import Any
+from typing import TypedDict
 
 import requests
 from beartype import BeartypeConf, beartype
 from requests import PreparedRequest
 
 from mock_response_delay._core import respond_after_delay
+
+
+class _RequestsKeywordArguments(TypedDict, total=False):
+    """Keyword arguments attached by ``responses``."""
+
+    timeout: tuple[float | None, float | None] | float | int | None
 
 
 @beartype
@@ -28,14 +34,12 @@ def _read_timeout_seconds(*, request: PreparedRequest) -> float | None:
     # does not, so the attribute is not in the ``requests`` type stubs,
     # and a request which was not made through ``responses`` does not
     # have it.
-    req_kwargs: dict[str, Any] = getattr(  # pylint: disable=bad-builtin
+    req_kwargs: _RequestsKeywordArguments = getattr(  # pylint: disable=bad-builtin
         request,
         "req_kwargs",
-        {},
+        _RequestsKeywordArguments(),
     )
-    timeout: tuple[float | None, float | None] | float | None = req_kwargs.get(
-        "timeout"
-    )
+    timeout = req_kwargs.get("timeout")
     # ``requests`` accepts the timeout as a single number, which applies
     # to both connecting and reading, or as a ``(connect, read)`` tuple.
     # A slow server only affects the read leg.
