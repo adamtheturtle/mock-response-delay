@@ -69,9 +69,7 @@ A request with a read timeout shorter than the delay raises ``requests.exception
         )
 
         with pytest.raises(expected_exception=requests.exceptions.Timeout):
-            _response = requests.get(
-                url="https://example.com/", timeout=1.0
-            )
+            _response = requests.get(url="https://example.com/", timeout=1.0)
 
         response = requests.get(url="https://example.com/", timeout=10.0)
 
@@ -114,9 +112,7 @@ A request with a read timeout shorter than the delay raises ``httpx.ReadTimeout`
 
     with httpx.Client(transport=transport) as client:
         with pytest.raises(expected_exception=httpx.ReadTimeout):
-            _response = client.get(
-                url="https://example.com/", timeout=1.0
-            )
+            _response = client.get(url="https://example.com/", timeout=1.0)
 
         response = client.get(url="https://example.com/", timeout=10.0)
 
@@ -155,9 +151,7 @@ A request with a read timeout shorter than the delay raises ``httpx.ReadTimeout`
 
     with httpx2.Client(transport=transport) as client:
         with pytest.raises(expected_exception=httpx2.ReadTimeout):
-            _response = client.get(
-                url="https://example.com/", timeout=1.0
-            )
+            _response = client.get(url="https://example.com/", timeout=1.0)
 
         response = client.get(url="https://example.com/", timeout=10.0)
 
