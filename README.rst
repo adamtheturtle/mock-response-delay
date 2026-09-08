@@ -8,7 +8,7 @@ mock-response-delay
 
 Simulate a slow server, and the client timeout it causes, in HTTP mocks.
 
-``requests-mock``, ``responses`` and ``respx`` answer requests instantly, so a test of how code handles a slow server, or a timeout, has nothing to exercise.
+``requests-mock`` and ``respx`` answer requests instantly, so a test of how code handles a slow server, or a timeout, has nothing to exercise.
 This package wraps a mock's callback so that it answers as a server which takes a given number of seconds would.
 A request whose read timeout is shorter than the delay waits for the timeout and then raises the same exception which the client library raises against a real slow server.
 Any other request gets the response after waiting for the delay.
@@ -67,51 +67,6 @@ A request with a read timeout shorter than the delay raises ``requests.exception
         _matcher: object = mock.get(
             url="https://example.com/",
             text=delayed_requests_mock_callback(
-                callback=slow_callback,
-                delay_seconds=5.0,
-                sleep_fn=waits.append,
-            ),
-        )
-
-        with pytest.raises(expected_exception=requests.exceptions.Timeout):
-            _response = requests.get(url="https://example.com/", timeout=1.0)
-
-        response = requests.get(url="https://example.com/", timeout=10.0)
-
-    assert response.text == "Hello"
-    assert waits == [1.0, 5.0]
-
-``requests`` with ``responses``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Wrap a callback before giving it to ``responses``.
-A request with a read timeout shorter than the delay raises ``requests.exceptions.Timeout``:
-
-.. code-block:: python
-
-    """Time out against a slow server."""
-
-    import pytest
-    import requests
-    import responses
-    from requests import PreparedRequest
-
-    from mock_response_delay.for_requests import delayed_responses_callback
-
-
-    def slow_callback(request: PreparedRequest) -> tuple[int, dict[str, str], str]:
-        """Answer any request."""
-        del request
-        return (200, {}, "Hello")
-
-
-    waits: list[float] = []
-
-    with responses.RequestsMock() as mock:
-        _registration = mock.add_callback(
-            method="GET",
-            url="https://example.com/",
-            callback=delayed_responses_callback(
                 callback=slow_callback,
                 delay_seconds=5.0,
                 sleep_fn=waits.append,

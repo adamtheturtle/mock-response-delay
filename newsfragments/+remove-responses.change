@@ -1,0 +1,1 @@
+Remove the ``responses`` callback integration. Use the ``requests-mock`` integration for ``requests`` clients.

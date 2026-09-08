@@ -61,57 +61,9 @@ A request with a read timeout shorter than the delay raises :class:`requests.exc
 ``requests-mock`` copies the timeout passed to ``requests`` onto the request object it gives to a callback.
 That public ``timeout`` property is where the read timeout is read from.
 
-``requests`` with ``responses``
--------------------------------
-
-:func:`~mock_response_delay.for_requests.delayed_responses_callback` wraps a ``responses`` callback.
-A request with a read timeout shorter than the delay raises :class:`requests.exceptions.Timeout`:
-
-.. code-block:: python
-
-    """Time out against a slow server."""
-
-    import pytest
-    import requests
-    import responses
-    from requests import PreparedRequest
-
-    from mock_response_delay.for_requests import delayed_responses_callback
-
-
-    def slow_callback(request: PreparedRequest) -> tuple[int, dict[str, str], str]:
-        """Answer any request."""
-        del request
-        return (200, {}, "Hello")
-
-
-    waits: list[float] = []
-
-    with responses.RequestsMock() as mock:
-        _registration = mock.add_callback(
-            method="GET",
-            url="https://example.com/",
-            callback=delayed_responses_callback(
-                callback=slow_callback,
-                delay_seconds=5.0,
-                sleep_fn=waits.append,
-            ),
-        )
-
-        with pytest.raises(expected_exception=requests.exceptions.Timeout):
-            _response = requests.get(url="https://example.com/", timeout=1.0)
-
-        response = requests.get(url="https://example.com/", timeout=10.0)
-
-    assert response.text == "Hello"
-    assert waits == [1.0, 5.0]
-
 ``requests`` accepts the timeout as one number, which applies to both connecting and reading, or as a ``(connect, read)`` tuple.
 A slow server only affects the read leg, so only the read timeout is compared with the delay.
 A request with no timeout waits for the whole delay.
-
-``responses`` attaches the keyword arguments of each ``requests`` call to the prepared request it gives to a callback.
-That is where the timeout is read from, so a request which was not made through ``responses`` is treated as having no timeout.
 
 ``httpx`` with ``respx`` or ``httpx.MockTransport``
 ---------------------------------------------------
