@@ -1094,6 +1094,17 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+httpx = [
+    { name = "httpx" },
+]
+httpx2 = [
+    { name = "httpx2" },
+]
+requests = [
+    { name = "requests" },
+]
+
+[package.dev-dependencies]
 dev = [
     { name = "actionlint-py" },
     { name = "check-manifest" },
@@ -1144,81 +1155,75 @@ dev = [
     { name = "yamlfix" },
     { name = "zizmor" },
 ]
-httpx = [
-    { name = "httpx" },
-]
-httpx2 = [
-    { name = "httpx2" },
-]
 release = [
     { name = "check-wheel-contents" },
     { name = "towncrier" },
 ]
-requests = [
-    { name = "requests" },
-]
 
 [package.metadata]
 requires-dist = [
-    { name = "actionlint-py", marker = "extra == 'dev'", specifier = "==1.7.12.24" },
     { name = "beartype", specifier = ">=0.22.9" },
-    { name = "check-manifest", marker = "extra == 'dev'", specifier = "==0.51" },
-    { name = "check-wheel-contents", marker = "extra == 'dev'", specifier = "==0.6.3" },
-    { name = "check-wheel-contents", marker = "extra == 'release'", specifier = "==0.6.3" },
-    { name = "coverage", marker = "extra == 'dev'", specifier = "==7.16.0" },
-    { name = "deptry", marker = "extra == 'dev'", specifier = "==0.25.1" },
-    { name = "doc8", marker = "extra == 'dev'", specifier = "==2.0.0" },
-    { name = "doccmd", marker = "extra == 'dev'", specifier = "==2026.9.1" },
-    { name = "furo", marker = "extra == 'dev'", specifier = "==2025.12.19" },
-    { name = "httpx", marker = "extra == 'dev'", specifier = "==0.28.1" },
     { name = "httpx", marker = "extra == 'httpx'", specifier = ">=0.27.0" },
-    { name = "httpx2", marker = "extra == 'dev'", specifier = "==2.12.0" },
     { name = "httpx2", marker = "extra == 'httpx2'", specifier = ">=2.12" },
-    { name = "interrogate", marker = "extra == 'dev'", specifier = "==1.7.0" },
-    { name = "mypy", extras = ["faster-cache"], marker = "extra == 'dev'", specifier = "==2.3.1" },
-    { name = "mypy-strict-kwargs", marker = "extra == 'dev'", specifier = "==2026.8.25.1" },
-    { name = "no-defaults", marker = "extra == 'dev'", specifier = "==2026.9.1" },
-    { name = "prek", marker = "extra == 'dev'", specifier = "==0.5.2" },
-    { name = "pydocstringformatter", marker = "extra == 'dev'", specifier = "==1.0.0" },
-    { name = "pydocstyle", marker = "extra == 'dev'", specifier = "==6.3" },
-    { name = "pylint", extras = ["spelling"], marker = "extra == 'dev'", specifier = "==4.0.8" },
-    { name = "pylint-per-file-ignores", marker = "extra == 'dev'", specifier = "==3.2.1" },
-    { name = "pyproject-fmt", marker = "extra == 'dev'", specifier = "==2.29.3" },
-    { name = "pyrefly", marker = "extra == 'dev'", specifier = "==1.2.0" },
-    { name = "pyright", marker = "extra == 'dev'", specifier = "==1.1.411" },
-    { name = "pyroma", marker = "extra == 'dev'", specifier = "==5.0.1" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = "==9.1.1" },
-    { name = "pytest-beartype-tests", marker = "extra == 'dev'", specifier = "==2026.8.16" },
-    { name = "requests", marker = "extra == 'dev'", specifier = "==2.34.2" },
     { name = "requests", marker = "extra == 'requests'", specifier = ">=2.32.3" },
-    { name = "responses", marker = "extra == 'dev'", specifier = "==0.26.3" },
-    { name = "respx", marker = "extra == 'dev'", specifier = "==0.23.1" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = "==0.16.6" },
-    { name = "shellcheck-py", marker = "extra == 'dev'", specifier = "==0.11.0.1" },
-    { name = "shfmt-py", marker = "extra == 'dev'", specifier = "==4.1.0" },
-    { name = "sphinx", marker = "extra == 'dev'", specifier = "==9.1.0" },
-    { name = "sphinx-copybutton", marker = "extra == 'dev'", specifier = "==0.5.2" },
-    { name = "sphinx-lint", marker = "extra == 'dev'", specifier = "==1.0.2" },
-    { name = "sphinx-paramlinks", marker = "extra == 'dev'", specifier = "==0.6" },
-    { name = "sphinx-pyproject", marker = "extra == 'dev'", specifier = "==0.3.0" },
-    { name = "sphinx-substitution-extensions", marker = "extra == 'dev'", specifier = "==2026.8.13.1" },
-    { name = "sphinxcontrib-spelling", marker = "extra == 'dev'", specifier = "==8.0.2" },
-    { name = "sphinxcontrib-towncrier", marker = "extra == 'dev'", specifier = "==0.5.0a0" },
-    { name = "strict-kwargs", marker = "extra == 'dev'", specifier = "==2026.8.28.post2" },
-    { name = "sybil", marker = "extra == 'dev'", specifier = "==10.1.0" },
-    { name = "towncrier", marker = "extra == 'dev'", specifier = "==26.9.0" },
-    { name = "towncrier", marker = "extra == 'release'", specifier = "==26.9.0" },
-    { name = "ty", marker = "extra == 'dev'", specifier = "==0.0.78" },
-    { name = "types-requests", marker = "extra == 'dev'", specifier = "==2.33.0.20260712" },
-    { name = "vale", marker = "extra == 'dev'", specifier = "==3.20.0.0" },
-    { name = "vulture", marker = "extra == 'dev'", specifier = "==2.16" },
-    { name = "yamlfix", marker = "extra == 'dev'", specifier = "==1.19.1" },
-    { name = "zizmor", marker = "extra == 'dev'", specifier = "==1.30.0" },
 ]
-provides-extras = ["dev", "httpx", "httpx2", "release", "requests"]
+provides-extras = ["httpx", "httpx2", "requests"]
 
 [package.metadata.requires-dev]
-dev = []
+dev = [
+    { name = "actionlint-py", specifier = "==1.7.12.24" },
+    { name = "check-manifest", specifier = "==0.51" },
+    { name = "check-wheel-contents", specifier = "==0.6.3" },
+    { name = "coverage", specifier = "==7.16.0" },
+    { name = "deptry", specifier = "==0.25.1" },
+    { name = "doc8", specifier = "==2.0.0" },
+    { name = "doccmd", specifier = "==2026.9.1" },
+    { name = "furo", specifier = "==2025.12.19" },
+    { name = "httpx", specifier = "==0.28.1" },
+    { name = "httpx2", specifier = "==2.12.0" },
+    { name = "interrogate", specifier = "==1.7.0" },
+    { name = "mypy", extras = ["faster-cache"], specifier = "==2.3.1" },
+    { name = "mypy-strict-kwargs", specifier = "==2026.8.25.1" },
+    { name = "no-defaults", specifier = "==2026.9.1" },
+    { name = "prek", specifier = "==0.5.2" },
+    { name = "pydocstringformatter", specifier = "==1.0.0" },
+    { name = "pydocstyle", specifier = "==6.3" },
+    { name = "pylint", extras = ["spelling"], specifier = "==4.0.8" },
+    { name = "pylint-per-file-ignores", specifier = "==3.2.1" },
+    { name = "pyproject-fmt", specifier = "==2.29.3" },
+    { name = "pyrefly", specifier = "==1.2.0" },
+    { name = "pyright", specifier = "==1.1.411" },
+    { name = "pyroma", specifier = "==5.0.1" },
+    { name = "pytest", specifier = "==9.1.1" },
+    { name = "pytest-beartype-tests", specifier = "==2026.8.16" },
+    { name = "requests", specifier = "==2.34.2" },
+    { name = "responses", specifier = "==0.26.3" },
+    { name = "respx", specifier = "==0.23.1" },
+    { name = "ruff", specifier = "==0.16.6" },
+    { name = "shellcheck-py", specifier = "==0.11.0.1" },
+    { name = "shfmt-py", specifier = "==4.1.0" },
+    { name = "sphinx", specifier = "==9.1.0" },
+    { name = "sphinx-copybutton", specifier = "==0.5.2" },
+    { name = "sphinx-lint", specifier = "==1.0.2" },
+    { name = "sphinx-paramlinks", specifier = "==0.6" },
+    { name = "sphinx-pyproject", specifier = "==0.3.0" },
+    { name = "sphinx-substitution-extensions", specifier = "==2026.8.13.1" },
+    { name = "sphinxcontrib-spelling", specifier = "==8.0.2" },
+    { name = "sphinxcontrib-towncrier", specifier = "==0.5.0a0" },
+    { name = "strict-kwargs", specifier = "==2026.8.28.post2" },
+    { name = "sybil", specifier = "==10.1.0" },
+    { name = "towncrier", specifier = "==26.9.0" },
+    { name = "ty", specifier = "==0.0.78" },
+    { name = "types-requests", specifier = "==2.33.0.20260712" },
+    { name = "vale", specifier = "==3.20.0.0" },
+    { name = "vulture", specifier = "==2.16" },
+    { name = "yamlfix", specifier = "==1.19.1" },
+    { name = "zizmor", specifier = "==1.30.0" },
+]
+release = [
+    { name = "check-wheel-contents", specifier = "==0.6.3" },
+    { name = "towncrier", specifier = "==26.9.0" },
+]
 
 [[package]]
 name = "mypy"
