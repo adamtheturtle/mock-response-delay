@@ -3,7 +3,7 @@
 import functools
 import time
 from collections.abc import Callable
-from typing import TypedDict
+from typing import Protocol, TypedDict, runtime_checkable
 
 import requests
 from beartype import BeartypeConf, beartype
@@ -18,6 +18,17 @@ class _RequestsKeywordArguments(TypedDict, total=False):
     timeout: tuple[float | None, float | None] | float | int | None
 
 
+@runtime_checkable
+class _ResponsesCallbackRequest(Protocol):
+    """The part of a request added by ``responses`` which we use.
+
+    ``responses.CallbackRequest`` will provide this type upstream:
+    https://github.com/getsentry/responses/pull/818
+    """
+
+    req_kwargs: _RequestsKeywordArguments
+
+
 @beartype
 def _read_timeout_seconds(*, request: PreparedRequest) -> float | None:
     """The read timeout which ``requests`` applies to a request.
@@ -29,22 +40,10 @@ def _read_timeout_seconds(*, request: PreparedRequest) -> float | None:
         The read timeout in seconds, or ``None`` if the request has no
         timeout.
     """
-    # ``responses`` customizes the ``PreparedRequest`` passed to callbacks by
-    # attaching the keyword arguments of the ``requests`` call as
-    # ``req_kwargs``.  However, its callback API declares the argument as the
-    # unmodified ``requests.PreparedRequest`` type, which neither defines nor
-    # guarantees that attribute.  This mismatch belongs upstream in
-    # ``responses``: it could expose a request type containing its additional
-    # ``params`` and ``req_kwargs`` attributes and use that type throughout its
-    # callback and matching APIs.  Adding the attribute to ``requests`` or
-    # ``types-requests`` would be incorrect because requests prepared outside
-    # ``responses`` do not have it.  The dynamic lookup can become direct
-    # attribute access when ``responses`` exposes and uses such a type.
-    req_kwargs: _RequestsKeywordArguments = getattr(  # noqa: B009  # pylint: disable=bad-builtin
-        request,
-        "req_kwargs",
-    )
-    timeout = req_kwargs.get("timeout")
+    if not isinstance(request, _ResponsesCallbackRequest):
+        message = "request was not prepared by responses"
+        raise TypeError(message)
+    timeout = request.req_kwargs.get("timeout")
     # ``requests`` accepts the timeout as a single number, which applies
     # to both connecting and reading, or as a ``(connect, read)`` tuple.
     # A slow server only affects the read leg.

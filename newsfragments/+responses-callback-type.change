@@ -1,0 +1,1 @@
+Use a local protocol for ``responses`` callback requests, allowing direct access to ``req_kwargs`` while the public upstream type is pending.

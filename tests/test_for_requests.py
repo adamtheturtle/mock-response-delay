@@ -174,6 +174,22 @@ class TestDelayedResponsesCallback:
         callback.assert_not_called()
 
     @staticmethod
+    def test_request_not_from_responses() -> None:
+        """Reject a request without the attributes added by responses."""
+        callback = delayed_responses_callback(
+            callback=_hello,
+            delay_seconds=5.0,
+            sleep_fn=lambda _: None,
+        )
+        request = requests.Request(method="GET", url=_URL).prepare()
+
+        with pytest.raises(
+            expected_exception=TypeError,
+            match="request was not prepared by responses",
+        ):
+            _ = callback(request)
+
+    @staticmethod
     def test_default_sleep() -> None:
         """By default, the delay is real."""
         # Windows timers are coarse, so allow a short sleep to end early.
