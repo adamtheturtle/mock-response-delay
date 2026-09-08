@@ -1,8 +1,27 @@
 """The delay and timeout logic which every client library shares."""
 
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
+from typing import TypeGuard
 
 from beartype import beartype
+
+
+def _is_object_mapping(
+    value: object,
+    /,
+) -> TypeGuard[Mapping[object, object]]:
+    """Return whether a value is a mapping with arbitrary contents."""
+    return isinstance(value, Mapping)
+
+
+def read_timeout_from_extension(*, timeout_info: object) -> float | None:
+    """Read a numeric read timeout from an HTTP request extension."""
+    if not _is_object_mapping(timeout_info):
+        return None
+    read_timeout = timeout_info.get("read")
+    return (
+        float(read_timeout) if isinstance(read_timeout, (int, float)) else None
+    )
 
 
 @beartype
