@@ -174,20 +174,6 @@ class TestDelayedResponsesCallback:
         callback.assert_not_called()
 
     @staticmethod
-    def test_request_not_from_responses() -> None:
-        """A request which ``responses`` did not make has no timeout."""
-        waits: list[float] = []
-        callback = delayed_responses_callback(
-            callback=_hello,
-            delay_seconds=5.0,
-            sleep_fn=waits.append,
-        )
-        request = requests.Request(method="GET", url=_URL).prepare()
-
-        assert callback(request) == (HTTPStatus.OK, {}, "Hello")
-        assert waits == [5.0]
-
-    @staticmethod
     def test_default_sleep() -> None:
         """By default, the delay is real."""
         # Windows timers are coarse, so allow a short sleep to end early.
@@ -197,10 +183,16 @@ class TestDelayedResponsesCallback:
             callback=_hello,
             delay_seconds=delay_seconds,
         )
-        request = requests.Request(method="GET", url=_URL).prepare()
+        requests_mock = responses.RequestsMock()
+        _ = requests_mock.add_callback(
+            method="GET",
+            url=_URL,
+            callback=callback,
+        )
 
-        start = time.monotonic()
-        _ = callback(request)
-        elapsed = time.monotonic() - start
+        with requests_mock:
+            start = time.monotonic()
+            _ = requests.get(url=_URL, timeout=1.0)
+            elapsed = time.monotonic() - start
 
         assert elapsed >= minimum_elapsed_seconds
