@@ -74,6 +74,8 @@ nitpicky = True
 nitpick_ignore = [
     # The type parameter of each generic function.
     ("py:class", "T"),
+    ("py:class", "ContextT"),
+    ("py:class", "RequestT"),
     ("py:class", "httpx.Request"),
     ("py:class", "httpx.ReadTimeout"),
     ("py:class", "httpx2.Request"),

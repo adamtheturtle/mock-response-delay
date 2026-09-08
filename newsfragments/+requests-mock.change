@@ -1,0 +1,1 @@
+Add ``delayed_requests_mock_callback`` for simulating response delays and read timeouts with ``requests-mock``.

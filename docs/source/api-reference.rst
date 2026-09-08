@@ -10,6 +10,10 @@ API Reference
    :members:
    :undoc-members:
 
+.. automodule:: mock_response_delay.for_requests_mock
+   :members:
+   :undoc-members:
+
 ``httpx``
 ---------
 

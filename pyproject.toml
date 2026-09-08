@@ -65,6 +65,7 @@ optional-dependencies.dev = [
     "pytest==9.1.1",
     "pytest-beartype-tests==2026.8.16",
     "requests==2.34.2",
+    "requests-mock==1.12.1",
     "responses==0.26.3",
     "respx==0.23.1",
     "ruff==0.16.6",
