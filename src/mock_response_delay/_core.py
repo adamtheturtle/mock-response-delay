@@ -6,6 +6,7 @@ from typing import TypeGuard
 from beartype import BeartypeConf, beartype
 
 
+@beartype
 def _is_object_mapping(
     value: object,
     /,
@@ -14,6 +15,7 @@ def _is_object_mapping(
     return isinstance(value, Mapping)
 
 
+@beartype
 def read_timeout_from_extension(*, timeout_info: object) -> float | None:
     """Read a numeric read timeout from an HTTP request extension."""
     if not _is_object_mapping(timeout_info):
