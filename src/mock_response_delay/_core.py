@@ -3,7 +3,7 @@
 from collections.abc import Callable, Mapping
 from typing import TypeGuard
 
-from beartype import beartype
+from beartype import BeartypeConf, beartype
 
 
 def _is_object_mapping(
@@ -24,7 +24,7 @@ def read_timeout_from_extension(*, timeout_info: object) -> float | None:
     )
 
 
-@beartype
+@beartype(conf=BeartypeConf(is_pep484_tower=True))
 def respond_after_delay[T](
     *,
     read_timeout_seconds: float | None,

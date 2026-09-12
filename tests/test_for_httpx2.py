@@ -39,14 +39,14 @@ class TestDelayedHttpx2Handler:
 
     @staticmethod
     def test_no_timeout() -> None:
-        """A request with no timeout waits for the delay."""
+        """A request with no timeout waits for an integer delay."""
         waits: list[float] = []
-        transport = _transport(delay_seconds=5.0, sleep_fn=waits.append)
+        transport = _transport(delay_seconds=5, sleep_fn=waits.append)
         with httpx2.Client(transport=transport) as client:
             response = client.get(url=_URL, timeout=None)
 
         assert response.text == "Hello"
-        assert waits == [5.0]
+        assert waits == [5]
 
     @staticmethod
     def test_timeout_longer_than_delay() -> None:

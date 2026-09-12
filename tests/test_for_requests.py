@@ -46,15 +46,15 @@ class TestDelayedResponsesCallback:
 
     @staticmethod
     def test_no_timeout() -> None:
-        """A request with no timeout waits for the delay."""
+        """A request with no timeout waits for an integer delay."""
         waits: list[float] = []
-        with _requests_mock(delay_seconds=5.0, sleep_fn=waits.append):
+        with _requests_mock(delay_seconds=5, sleep_fn=waits.append):
             # Omitting the timeout is the behavior under test.
             # pylint: disable-next=missing-timeout
             response = requests.get(url=_URL)  # noqa: S113
 
         assert response.text == "Hello"
-        assert waits == [5.0]
+        assert waits == [5]
 
     @staticmethod
     def test_none_timeout() -> None:
