@@ -3,6 +3,11 @@ Changelog
 
 .. towncrier release notes start
 
+2026.09.12
+----------
+
+- Accept integer response delays through every supported HTTP client wrapper.
+
 2026.09.08
 ----------
 
