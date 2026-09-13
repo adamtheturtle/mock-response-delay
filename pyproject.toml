@@ -308,17 +308,22 @@ ignore = [
     ".git_archival.txt",
     ".prettierrc",
     ".vale.ini",
+    ".vscode/*.json",
     "CHANGELOG.rst",
     "CODE_OF_CONDUCT.rst",
+    "conftest.py",
     "docs",
     "docs/**",
     "LICENSE",
     "newsfragments",
     "newsfragments/**",
+    "prek.toml",
     "spelling_private_dict.txt",
+    "styles/snapper/*.yml",
     "tests",
     "tests/**",
     "uv.lock",
+    "zizmor.yml",
 ]
 
 [tool.vulture]
