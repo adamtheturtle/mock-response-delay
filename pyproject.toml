@@ -63,7 +63,7 @@ dev = [
     "doccmd==2026.9.16",
     "furo==2025.12.19",
     "httpx==0.28.1",
-    "httpx2==2.12.0",
+    "httpx2==2.13.0",
     "interrogate==1.7.0",
     "mypy[faster-cache]==2.3.1",
     "mypy-strict-kwargs==2026.8.25.1",
