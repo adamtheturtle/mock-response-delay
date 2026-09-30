@@ -55,6 +55,7 @@ urls.Source = "https://github.com/adamtheturtle/mock-response-delay"
 [dependency-groups]
 dev = [
     "actionlint-py==1.7.12.25",
+    "beartype==0.23.0rc2",
     "check-manifest==0.51",
     "check-wheel-contents==0.6.3",
     "coverage==7.16.1",
@@ -78,7 +79,7 @@ dev = [
     "pyright==1.1.414",
     "pyroma==5.0.1",
     "pytest==9.1.1",
-    "pytest-beartype-tests==2026.8.16",
+    "pytest-beartype==0.3.0",
     "requests==2.34.2",
     "responses==0.26.3",
     "respx==0.23.1",
@@ -411,6 +412,9 @@ analysis.strict-generic-narrowing = true
 addopts = [
     "--strict-markers",
 ]
+beartype_packages = [ "mock_response_delay" ]
+beartype_test_fixtures = true
+beartype_tests = true
 log_cli = true
 xfail_strict = true
 
