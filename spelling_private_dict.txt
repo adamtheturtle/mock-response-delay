@@ -17,6 +17,7 @@ linters
 linting
 macOS
 mocks
+namespace
 pragma
 pyrefly
 pyright
