@@ -35,9 +35,6 @@ def _transport(
     )
 
 
-# Tests for ``delayed_httpx_handler``.
-
-
 def test_no_timeout() -> None:
     """A request with no timeout waits for an integer delay."""
     waits: list[float] = []

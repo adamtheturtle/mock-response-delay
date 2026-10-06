@@ -41,9 +41,6 @@ def _requests_mock(
     return requests_mock
 
 
-# Tests for ``delayed_responses_callback``.
-
-
 def test_no_timeout() -> None:
     """A request with no timeout waits for an integer delay."""
     waits: list[float] = []
