@@ -47,6 +47,11 @@ jobs:
         env:
           UV_PYTHON: ${{ matrix.python-version }}
 
+      - name: Run documentation examples with Karva
+        run: uv run --group=dev python -m karva_docs
+        env:
+          UV_PYTHON: ${{ matrix.python-version }}
+
       - name: Require 100% Coverage
         run: |
           uv run --group=dev coverage combine
