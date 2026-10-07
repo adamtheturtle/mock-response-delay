@@ -1,4 +1,5 @@
 Args
+Karva
 api
 beartype
 changelog
@@ -16,6 +17,7 @@ linters
 linting
 macOS
 mocks
+namespace
 pragma
 pyrefly
 pyright
