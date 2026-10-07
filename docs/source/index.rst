@@ -27,7 +27,6 @@ Reference
    usage
    api-reference
    contributing
-   karva
 
 .. toctree::
    :hidden:
