@@ -103,7 +103,6 @@ dev = [
     "sphinxcontrib-towncrier==0.5.0a0",
     "strict-kwargs==2026.8.28.post2",
     "sybil==10.1.0",
-    "sybil-extras[karva]",
     "towncrier==26.9.0",
     "ty==0.0.84",
     "types-requests==2.33.0.20260906",
@@ -136,17 +135,6 @@ version_scheme = "post-release"
 #
 # This must be a PEP 440 compliant version.
 fallback_version = "0.0.0"
-
-[tool.uv]
-# The adapter is not released yet, and doccmd pins an older sybil-extras.
-# Remove this override when doccmd permits the released adapter version:
-# https://github.com/adamtheturtle/sybil-extras/issues/1294
-override-dependencies = [
-    """\
-    sybil-extras[karva] @ \
-    git+https://github.com/adamtheturtle/sybil-extras.git@2a4a010aeaca34bbfc4329770a1926c1877b3494\
-    """,
-]
 
 [tool.ruff]
 line-length = 79
@@ -328,7 +316,6 @@ ignore = [
     "conftest.py",
     "docs",
     "docs/**",
-    "karva_docs.py",
     "LICENSE",
     "newsfragments",
     "newsfragments/**",

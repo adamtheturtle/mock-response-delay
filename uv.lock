@@ -6,9 +6,6 @@ resolution-markers = [
     "python_full_version < '3.15'",
 ]
 
-[manifest]
-overrides = [{ name = "sybil-extras", extras = ["karva"], git = "https://github.com/adamtheturtle/sybil-extras.git?rev=2a4a010aeaca34bbfc4329770a1926c1877b3494" }]
-
 [[package]]
 name = "accessible-pygments"
 version = "0.0.5"
@@ -574,7 +571,7 @@ dependencies = [
     { name = "dulwich" },
     { name = "pygments" },
     { name = "sybil" },
-    { name = "sybil-extras", extra = ["karva"] },
+    { name = "sybil-extras" },
     { name = "typing-extensions" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/19/fb/eccce72fadfb1893246d03ce1fea41f002dd6febeaae700dbafbaa8adbf6/doccmd-2026.9.16.1.tar.gz", hash = "sha256:210cdfa64ce1eeae0cb1d2ec9673d0259ce6decdd9dfd4ee11e075f27a0f1209", size = 210110, upload-time = "2026-09-16T23:25:57.753Z" }
@@ -854,26 +851,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d", size = 245115, upload-time = "2025-03-05T20:05:02.478Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67", size = 134899, upload-time = "2025-03-05T20:05:00.369Z" },
-]
-
-[[package]]
-name = "karva"
-version = "0.0.1a12"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/32/10/9e8f09c28420226c2d99c303b0b598d6c8537945345ecaea56d602089349/karva-0.0.1a12.tar.gz", hash = "sha256:dceb4bff8d926f6b792f0b03354ee3e6181deca98a9c19cbb1badc816e0110a2", size = 548399, upload-time = "2026-08-18T13:48:42.007Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/f0/d4/d201a5ca0bf700e145fee6df95042e3e4e8e40f24fe8249d6d259a92bf0a/karva-0.0.1a12-cp310-abi3-macosx_10_12_x86_64.whl", hash = "sha256:f5a7eca617357225f9816103c7cbf264d8e8de7105ee9c07fed491c63eaa4b7d", size = 5647959, upload-time = "2026-08-18T13:48:20.026Z" },
-    { url = "https://files.pythonhosted.org/packages/33/50/0feca2296159dd39f2af1d39315195e1d3244853e43f7ceccfc8d3f09d7c/karva-0.0.1a12-cp310-abi3-macosx_11_0_arm64.whl", hash = "sha256:c8410aa0275bee4161a670aa0e72f355a0292f5d388fd02b6579fbbd14e503cb", size = 5443931, upload-time = "2026-08-18T13:48:21.996Z" },
-    { url = "https://files.pythonhosted.org/packages/f2/e7/512e0ee19a7384ec01a8ac6637ccb068dfe9f68a1ebbb554adafee07d88b/karva-0.0.1a12-cp310-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:77795f6b3429c3dc4c60bc87b2c4f0c19b5daa0ecf47052d1f5e15b62ff9be4e", size = 5610107, upload-time = "2026-08-18T13:48:23.981Z" },
-    { url = "https://files.pythonhosted.org/packages/95/72/8ccbd2db4e4100f51acab5090e81c88b87873780abbe735340c82d55699c/karva-0.0.1a12-cp310-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl", hash = "sha256:d3abf511d0ca37f3ad82f3acda389bd8e795eaad73a9806df119babfa4bd1268", size = 5433085, upload-time = "2026-08-18T13:48:25.889Z" },
-    { url = "https://files.pythonhosted.org/packages/bc/33/56688e5a782f7b210244f4c508080ff8f346489aee609b7366b285d94f0c/karva-0.0.1a12-cp310-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:a127d68ec7e0ae56d890ae3e13e5410d011dd72a0162f5092a1d89ec473ae8c4", size = 6458178, upload-time = "2026-08-18T13:48:27.576Z" },
-    { url = "https://files.pythonhosted.org/packages/b1/b5/e56f267619c6c433c48aa134abf7ee25c56a022e7ad3c70d07067914be77/karva-0.0.1a12-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:13726a5551f189a832359f94c8ec07909caea06f34971dc330f23629bbec1179", size = 5992081, upload-time = "2026-08-18T13:48:29.647Z" },
-    { url = "https://files.pythonhosted.org/packages/cc/6e/cc5e43c59535bd4bab5049fe376a3d97cf5904ebd0d4354ca72bbde29393/karva-0.0.1a12-cp310-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:55a6d4f361ebbc60daa8a6546aa3ce3fdb4b8d06ede4f1e883beee6c69bf1ae1", size = 5787913, upload-time = "2026-08-18T13:48:31.519Z" },
-    { url = "https://files.pythonhosted.org/packages/e8/ca/444c04259d3cc336755d65f04cb55287023050ed25b36be7f39500217c8e/karva-0.0.1a12-cp310-abi3-musllinux_1_2_armv7l.whl", hash = "sha256:f0d226a5c02bcdae8bf30a75af40058da5a0d8cd8cf97663c630bb8c00ab8927", size = 5708187, upload-time = "2026-08-18T13:48:33.461Z" },
-    { url = "https://files.pythonhosted.org/packages/28/20/090fa4816bb989b8bdc0407aa0c19594b5d837385d49668f77d78a42eeee/karva-0.0.1a12-cp310-abi3-musllinux_1_2_i686.whl", hash = "sha256:39a6773b0cd845db13f81e63735be2e50a90ad4038258d989810d874ac187588", size = 6299057, upload-time = "2026-08-18T13:48:35.166Z" },
-    { url = "https://files.pythonhosted.org/packages/0a/f5/d8d7518e869d0b09a702ca5ff07359e0f648067f65be3e5881bd86514120/karva-0.0.1a12-cp310-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:ee3ae27fb39cf96275f20b175a0bfa235c55dfa6960feacc7e4a6a7217810260", size = 6216272, upload-time = "2026-08-18T13:48:37.004Z" },
-    { url = "https://files.pythonhosted.org/packages/f7/1a/423a1ec852d4c8f75907c826677c0d75b3f2ed0d6dabf1898a1032557465/karva-0.0.1a12-cp310-abi3-win32.whl", hash = "sha256:d2d02fcad1f87fd93e7cf85917337517159393551aa0970cbb5a332202aaca18", size = 5364860, upload-time = "2026-08-18T13:48:38.698Z" },
-    { url = "https://files.pythonhosted.org/packages/9f/2e/c266659a1e75c79824ff4674c39c767664161f46173c34173409f9d1e303/karva-0.0.1a12-cp310-abi3-win_amd64.whl", hash = "sha256:63d4a9d92d22f6c9960d60efcfe38c5514004978a2a118e1ab0a093d5f42517c", size = 5969293, upload-time = "2026-08-18T13:48:40.333Z" },
 ]
 
 [[package]]
@@ -1174,7 +1151,6 @@ dev = [
     { name = "sphinxcontrib-towncrier" },
     { name = "strict-kwargs" },
     { name = "sybil" },
-    { name = "sybil-extras", extra = ["karva"] },
     { name = "towncrier" },
     { name = "ty" },
     { name = "types-requests" },
@@ -1243,7 +1219,6 @@ dev = [
     { name = "sphinxcontrib-towncrier", specifier = "==0.5.0a0" },
     { name = "strict-kwargs", specifier = "==2026.8.28.post2" },
     { name = "sybil", specifier = "==10.1.0" },
-    { name = "sybil-extras", extras = ["karva"] },
     { name = "towncrier", specifier = "==26.9.0" },
     { name = "ty", specifier = "==0.0.84" },
     { name = "types-requests", specifier = "==2.33.0.20260906" },
@@ -2320,19 +2295,17 @@ wheels = [
 
 [[package]]
 name = "sybil-extras"
-version = "2026.8.17.dev272+g2a4a010ae"
-source = { git = "https://github.com/adamtheturtle/sybil-extras.git?rev=2a4a010aeaca34bbfc4329770a1926c1877b3494#2a4a010aeaca34bbfc4329770a1926c1877b3494" }
+version = "2026.8.16"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "beartype" },
     { name = "markdown-it-py" },
     { name = "myst-parser" },
     { name = "sybil" },
-    { name = "typing-extensions" },
 ]
-
-[package.optional-dependencies]
-karva = [
-    { name = "karva" },
+sdist = { url = "https://files.pythonhosted.org/packages/af/15/2a3b048a6d12e03641b5ce5df69eac13aa3b579542354adca78c0db66480/sybil_extras-2026.8.16.tar.gz", hash = "sha256:79c8dda5d2261b93d7885edbdfb534a0b6ebf3c4f8c8a53d400734a556fd402d", size = 119266, upload-time = "2026-08-16T09:17:42.801Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/43/fb/8f1ebdd721b12be7f1428f820c983f3cbe3ef3e39d9d78240db1b260e3bd/sybil_extras-2026.8.16-py3-none-any.whl", hash = "sha256:9dd08d8a2b24c643170f88bc4d9c15464fc4a3c2829d844d68c1f3f76c3597ce", size = 87648, upload-time = "2026-08-16T09:17:41.183Z" },
 ]
 
 [[package]]

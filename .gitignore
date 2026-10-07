@@ -111,6 +111,3 @@ src/*/_setuptools_scm_version.txt
 
 # Vale styles downloaded by ``vale sync``
 styles/
-
-# Native test runner cache
-.karva_cache/
