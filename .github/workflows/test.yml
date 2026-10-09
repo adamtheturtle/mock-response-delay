@@ -73,7 +73,7 @@ jobs:
   completion-ci:
     needs: [tests]
     runs-on: ubuntu-latest
-    if: always()
+    if: ${{ !cancelled() }}
     steps:
       - name: Check all jobs status
         run: |-
