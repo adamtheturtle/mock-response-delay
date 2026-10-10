@@ -36,7 +36,7 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "beartype>=0.22.9",
+    "beartype>=0.23.0",
 ]
 # Each client library is an extra, so that only the one which is used
 # needs to be installed.
@@ -55,7 +55,7 @@ urls.Source = "https://github.com/adamtheturtle/mock-response-delay"
 [dependency-groups]
 dev = [
     "actionlint-py==1.7.12.25",
-    "beartype==0.23.0rc2",
+    "beartype==0.23.0",
     "check-manifest==0.51",
     "check-wheel-contents==0.6.3",
     "coverage==7.16.2",
