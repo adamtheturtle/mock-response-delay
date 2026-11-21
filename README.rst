@@ -13,7 +13,7 @@ This package wraps a mock's callback so that it answers as a server which takes 
 A request whose read timeout is shorter than the delay waits for the timeout and then raises the same exception which the client library raises against a real slow server.
 Any other request gets the response after waiting for the delay.
 
-The waiting is done by a function which you can replace, so a test can record the waits, or advance a fake clock, instead of really sleeping.
+Replace the sleep function to record waits or advance a fake clock during tests.
 
 Installation
 ------------

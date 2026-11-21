@@ -58,7 +58,8 @@ A slow server only affects the read leg, so only the read timeout is compared wi
 A request with no timeout waits for the whole delay.
 
 ``responses`` attaches the keyword arguments of each ``requests`` call to the prepared request it gives to a callback.
-That is where the timeout is read from, so a request which was not made through ``responses`` is treated as having no timeout.
+The callback reads the timeout from those arguments.
+It treats requests made outside ``responses`` as having an unspecified timeout.
 
 ``httpx`` with ``respx`` or ``httpx.MockTransport``
 ---------------------------------------------------
@@ -137,7 +138,8 @@ With ``respx``, give the wrapped handler as the side effect of a route:
     assert waits == [1.0]
 
 An ``httpx`` client puts the timeout it will apply into the ``timeout`` extension of each request, with one entry per leg.
-That is where the read timeout is read from, so a request which was not made through a client is treated as having no timeout.
+The handler reads the read timeout from that extension.
+It treats requests made outside a client as having an unspecified timeout.
 The same handler serves ``httpx.AsyncClient``.
 
 ``httpx2``
