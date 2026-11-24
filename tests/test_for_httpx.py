@@ -14,7 +14,7 @@ from mock_response_delay.for_httpx import delayed_httpx_handler
 
 
 class _AsyncGet(Protocol):
-    """The async request interface used by the test."""
+    """The asynchronous request interface used by the test."""
 
     def get(
         self, _url: str, /, *, timeout: float
