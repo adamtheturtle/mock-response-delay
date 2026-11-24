@@ -59,7 +59,7 @@ dev = [
     "beartype==0.23.1",
     "check-manifest==0.51",
     "check-wheel-contents==0.6.3",
-    "coverage==7.17.3",
+    "coverage==7.17.4",
     "deptry==0.25.1",
     "doc8==2.0.0",
     "doc8-inline-markup==2026.11.18.3",
