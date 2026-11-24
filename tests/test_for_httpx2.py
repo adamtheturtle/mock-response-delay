@@ -1,14 +1,26 @@
 """Tests for ``mock_response_delay.for_httpx``."""
 
 import asyncio
-from collections.abc import Callable
+from collections.abc import Callable, Coroutine
 from http import HTTPStatus
+from typing import Protocol
 from unittest import mock
 
 import httpx2
 import pytest
 
 from mock_response_delay.for_httpx2 import delayed_httpx2_handler
+
+
+class _AsyncGet(Protocol):
+    """The async request interface used by the test."""
+
+    def get(
+        self, *, url: str, timeout: float
+    ) -> Coroutine[object, object, httpx2.Response]:
+        """Make a request with the given timeout."""
+        ...
+
 
 _URL = "https://example.com/slow"
 
@@ -141,9 +153,11 @@ def test_async_client() -> None:
     async def get() -> None:
         """Make a request which times out."""
         async with httpx2.AsyncClient(transport=transport) as client:
-            await client.get(url=_URL, timeout=1.0)
+            requester: _AsyncGet = client
+            await requester.get(url=_URL, timeout=1.0)
 
+    request: Coroutine[object, object, None] = get()
     with pytest.raises(expected_exception=httpx2.ReadTimeout):
-        asyncio.run(main=get())
+        asyncio.run(main=request)
 
     assert waits == [1.0]
