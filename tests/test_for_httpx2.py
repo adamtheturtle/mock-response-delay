@@ -16,7 +16,7 @@ class _AsyncGet(Protocol):
     """The async request interface used by the test."""
 
     def get(
-        self, *, url: str, timeout: float
+        self, _url: str, /, *, timeout: float
     ) -> Coroutine[object, object, httpx2.Response]:
         """Make a request with the given timeout."""
         ...
@@ -154,7 +154,7 @@ def test_async_client() -> None:
         """Make a request which times out."""
         async with httpx2.AsyncClient(transport=transport) as client:
             requester: _AsyncGet = client
-            await requester.get(url=_URL, timeout=1.0)
+            await requester.get(_URL, timeout=1.0)
 
     request: Coroutine[object, object, None] = get()
     with pytest.raises(expected_exception=httpx2.ReadTimeout):
